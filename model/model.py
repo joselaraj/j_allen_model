@@ -11,6 +11,9 @@ from data_src import data_src
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.utils import shuffle 
+import pickle
+import matplotlib.pyplot as plt
+from matplotlib import style
 
 #import our data
 data = pd.read_csv(data_src) 
@@ -38,19 +41,47 @@ data = data[['avg_time_to_throw',
              'dome']]
 
 # now we are going to enter what we want to predict which is the passing yards and attempts
-predict = data[['attempts']]
-
 # returns a new data frame 
 X = np.array(data.drop(['attempts'], axis=1))
 y = np.array(data['attempts'])
 
 # now we are going to split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1)
+'''
+best = 0 
+for _ in range(30):
 
-lin = LinearRegression() 
+    lin = LinearRegression() 
 
-lin.fit(X_train, y_train)
+    lin.fit(X_train, y_train)
 
-acc = lin.score(X_test, y_test)
+    acc = lin.score(X_test, y_test)
+    print(acc)
 
-print('Pass attempts accuracy:', acc * 100, '%')
+    if acc > best:
+        best = acc 
+        with open('attempts_model.pickle', 'wb') as f:
+            pickle.dump(lin, f)
+
+''' 
+pickle_in = open('attempts_model.pickle', 'rb')
+lin = pickle.load(pickle_in)
+
+style.use('ggplot')
+
+y_pred = lin.predict(X_test)
+
+# calculate the best fit line
+m, b = np.polyfit(y_test, y_pred, 1)
+best_fit_x = np.linspace(y_test.min(), y_test.max(), 100)
+best_fit_y = m * best_fit_x + b
+
+print(lin.score(X_test,y_test))
+
+plt.scatter(y_test, y_pred)
+plt.plot(best_fit_x, best_fit_y, '--r', label=f'y = {m:.2f}x + {b:.2f}')
+plt.xlabel('Actual')
+plt.ylabel('Predicted ')
+plt.title('Attempts - Actual vs Predicted ')
+plt.legend()
+plt.show()
