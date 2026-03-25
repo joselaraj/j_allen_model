@@ -86,4 +86,4 @@ player_df = player_df.sort_values(by=['season', 'week'])
 
 #save df to csv 
 
-player_df.to_csv('data/josh_allen_data.csv', index=False)
+player_df.to_csv('josh_allen_data.csv', index=False)
