@@ -67,7 +67,7 @@ for _ in range(30):
 pickle_in = open('attempts_model.pickle', 'rb')
 lin = pickle.load(pickle_in)
 
-style.use('ggplot')
+'''style.use('ggplot')
 
 y_pred = lin.predict(X_test)
 
@@ -84,4 +84,4 @@ plt.xlabel('Actual')
 plt.ylabel('Predicted ')
 plt.title('Attempts - Actual vs Predicted ')
 plt.legend()
-plt.show()
+plt.show()'''

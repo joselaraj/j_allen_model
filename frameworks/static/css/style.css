@@ -1,0 +1,25 @@
+body{
+    background-color: #222831;
+    margin: 0px;
+}
+
+h2{
+    color: white;
+    margin: 0;
+    text-align: left;
+}
+
+h1{
+    color:white;
+    text-align: center;
+}
+
+.header-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 15px;
+    border: pink;
+    border-radius: 12px;
+}
+
