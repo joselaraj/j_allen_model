@@ -9,7 +9,6 @@ import pandas as pd
 import numpy as np
 from data_src import data_src
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.utils import shuffle 
 import pickle
 import matplotlib.pyplot as plt
@@ -43,10 +42,12 @@ data = data[['avg_time_to_throw',
 # now we are going to enter what we want to predict which is the passing yards and attempts
 # returns a new data frame 
 X = np.array(data.drop(['attempts'], axis=1))
+
 y = np.array(data['attempts'])
 
 # now we are going to split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1)
+
 '''
 best = 0 
 for _ in range(30):
@@ -56,14 +57,17 @@ for _ in range(30):
     lin.fit(X_train, y_train)
 
     acc = lin.score(X_test, y_test)
+
     print(acc)
 
     if acc > best:
         best = acc 
+
         with open('attempts_model.pickle', 'wb') as f:
             pickle.dump(lin, f)
 
 ''' 
+
 pickle_in = open('attempts_model.pickle', 'rb')
 lin = pickle.load(pickle_in)
 

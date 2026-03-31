@@ -22,14 +22,15 @@ print(df.isnull().sum())
 
 #since players are inside of the dome there isnt any data on wind or temp, so we can set to 0 
 df['wind'] = df['wind'].fillna(0)
-df['temp'] = df['temp'].fillna(df['temp'].median())
-
+df['temp'] = df['temp'].fillna(75)
 
 #add a binary for roof, if it is a dome we can have a 1
 df['roof_binary'] = (df['roof'] == 'dome').astype(int)
-
 df = df.drop(columns='roof')
-
 df = df.rename(columns={'roof_binary': 'dome'})
 
-df.to_csv('clean_data.csv', index=False) 
+#df.to_csv('clean_data.csv', index=False) 
+
+#print the first few rows of the cleaned data
+print(df.head())
+

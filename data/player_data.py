@@ -57,6 +57,7 @@ I only want Josh Allen's stats, but, incase down the line
     I want to get the data for other players it is going 
         to be readily available
 '''
+
 player_name = input('Player name: ') 
 
 #get only the data from the player we choose
@@ -85,5 +86,7 @@ player_df = pd.concat([home_merge, away_merge]).drop_duplicates()
 player_df = player_df.sort_values(by=['season', 'week'])
 
 #save df to csv 
+#player_df.to_csv('josh_allen_data.csv', index=False)
 
-player_df.to_csv('josh_allen_data.csv', index=False)
+
+print(player_df.head())
